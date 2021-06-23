@@ -82,7 +82,7 @@ class DeadOrAlivePlugin(plugins.SingletonPlugin):
 
     def before_map(self, map_):
         map_.connect("deadoralive_broken_links_by_organization",
-                     "/organization/broken_links",
+                     "/deadoralive/organization/broken_links/",
                      controller="ckanext.deadoralive.controllers:BrokenLinksController",
                      action="broken_links_by_organization")
         map_.connect("deadoralive_broken_links_by_email",
