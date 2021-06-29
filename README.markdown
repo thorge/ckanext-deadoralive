@@ -20,7 +20,7 @@ Features and screenshots: [seanh.cc/posts/ckanext-deadoralive](http://seanh.cc/p
 Requirements
 ------------
 
-Tested with CKAN 2.2 and Python 2.7. Python 2.6 is not supported!
+Tested with CKAN 2.8 and Python 2.7. Python 2.6 is not supported!
 
 
 Installation and Usage
