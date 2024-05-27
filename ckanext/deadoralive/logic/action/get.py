@@ -299,7 +299,7 @@ def broken_links_by_email(context, data_dict):
 
     # Turn out dict mapping emails -> broken datasets into a list.
     report = []
-    for email, dict_ in emails.items():
+    for email, dict_ in list(emails.items()):
         dict_["email"] = email
         report.append(dict_)
     # Sort the emails with the most broken links first.
@@ -312,26 +312,26 @@ def broken_links_by_email(context, data_dict):
             continue
 
         if len(item["datasets_with_broken_links"]) == 1:
-            subject = u"You have a dataset with broken links on {site}"
+            subject = "You have a dataset with broken links on {site}"
             subject = subject.format(site=pylons.config["ckan.site_title"])
-            body = u"This dataset contains a broken link:%0A%0A{title}%0A{url}"
+            body = "This dataset contains a broken link:%0A%0A{title}%0A{url}"
             broken_dataset = item["datasets_with_broken_links"][0]
             url = pylons.config["ckan.site_url"] + toolkit.url_for(
                 controller="package", action="read", id=broken_dataset["name"])
             body = body.format(title=broken_dataset["title"], url=url)
 
         else:
-            subject = u"You have {n} datasets with broken links on {site}"
+            subject = "You have {n} datasets with broken links on {site}"
             subject = subject.format(n=len(item["datasets_with_broken_links"]),
                                      site=pylons.config["ckan.site_title"])
-            body = u"These datasets have broken links:"
+            body = "These datasets have broken links:"
             for dataset in item["datasets_with_broken_links"]:
                 url = pylons.config["ckan.site_url"] + toolkit.url_for(
                     controller="package", action="read", id=dataset["name"])
-                body += u"%0A%0A{title}%0A{url}".format(
+                body += "%0A%0A{title}%0A{url}".format(
                     title=dataset["title"], url=url)
 
-        item["mailto"] = u"mailto:{email}?subject={subject}&body={body}".format(
+        item["mailto"] = "mailto:{email}?subject={subject}&body={body}".format(
             email=item["email"], subject=subject, body=body)
 
     return report

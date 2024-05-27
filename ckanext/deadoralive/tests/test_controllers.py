@@ -55,12 +55,12 @@ class TestBrokenLinksController(custom_helpers.FunctionalTestBaseClass):
         user = factories.User()
         config.authorized_users = [user["name"]]
 
-        org = factories.Organization(title=u"Test Örganißation")
+        org = factories.Organization(title="Test Örganißation")
         dataset = custom_factories.Dataset(owner_org=org["id"],
-                                           title=u"Test Dätaßet")
+                                           title="Test Dätaßet")
         resource = custom_factories.Resource(package_id=dataset["id"],
-                                             name=u"Test Rëßource",
-                                             url=u"http://bröken_link")
+                                             name="Test Rëßource",
+                                             url="http://bröken_link")
 
         custom_helpers.make_broken((resource,), user=user)
 
@@ -129,21 +129,21 @@ class TestBrokenLinksController(custom_helpers.FunctionalTestBaseClass):
     def test_broken_links_by_email_with_unicode(self):
         sysadmin = custom_factories.Sysadmin()
         extra_environ = {'REMOTE_USER': str(sysadmin["name"])}
-        maintainer = u"Mäintainer"
-        maintainer_email = u"mäintainer@maintainers.com"
-        author = u"Aüthör"
-        author_email = u"aüthör@authors.com"
+        maintainer = "Mäintainer"
+        maintainer_email = "mäintainer@maintainers.com"
+        author = "Aüthör"
+        author_email = "aüthör@authors.com"
         dataset_1 = custom_factories.Dataset(
-            title=u"Test Dätaßet", maintainer=maintainer,
+            title="Test Dätaßet", maintainer=maintainer,
             maintainer_email=maintainer_email)
         dataset_2 = custom_factories.Dataset(
-            title=u"Test Dätaßet", author=author, author_email=author_email)
+            title="Test Dätaßet", author=author, author_email=author_email)
         resource_1 = custom_factories.Resource(package_id=dataset_1["id"],
-                                               name=u"Test Rësourße",
-                                               url=u"http://bröken_link")
+                                               name="Test Rësourße",
+                                               url="http://bröken_link")
         resource_2 = custom_factories.Resource(package_id=dataset_2["id"],
-                                               name=u"Test Rësourße",
-                                               url=u"http://bröken_link")
+                                               name="Test Rësourße",
+                                               url="http://bröken_link")
 
         custom_helpers.make_broken((resource_1, resource_2), user=sysadmin)
 

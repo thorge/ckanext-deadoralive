@@ -215,12 +215,12 @@ class TestBrokenLinksByOrganization(custom_helpers.FunctionalTestBaseClass):
         """Test that it doesn't crash with non-ASCII characters in the input."""
         user = factories.User()
         config.authorized_users = [user["name"]]
-        org = factories.Organization(title=u'Test Örgänißation')
+        org = factories.Organization(title='Test Örgänißation')
         dataset = custom_factories.Dataset(owner_org=org['id'],
-                                           title=u'Test Dätaßet')
+                                           title='Test Dätaßet')
         resource = custom_factories.Resource(package_id=dataset["id"],
-                                             name=u'Test Rëßource',
-                                             url=u'http://bröken_link')
+                                             name='Test Rëßource',
+                                             url='http://bröken_link')
         custom_helpers.make_broken((resource,), user)
 
         helpers.call_action("ckanext_deadoralive_broken_links_by_organization")
@@ -421,8 +421,8 @@ class TestBrokenLinksByEmail(custom_helpers.FunctionalTestBaseClass):
         config.authorized_users = [user["name"]]
 
         dataset = custom_factories.Dataset(
-            title=u"ötåeåst", maintainer_email=u"ötåeåst_maintainer@test.com",
-            maintainer=u"ötåeåst_maintainer")
+            title="ötåeåst", maintainer_email="ötåeåst_maintainer@test.com",
+            maintainer="ötåeåst_maintainer")
 
         resource = custom_factories.Resource(package_id=dataset["id"])
         custom_helpers.make_broken((resource,), user)

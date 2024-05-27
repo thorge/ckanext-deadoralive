@@ -86,9 +86,9 @@ class TestUpsertAndGet(object):
     def test_insert_result_with_unicode(self):
         """Test upsert() and get() with non-ASCII chars in the reason string."""
         results.upsert("test_resource_id", False, status=500,
-                       reason=u"Föobäß")
+                       reason="Föobäß")
         result = results.get("test_resource_id")
-        assert result["reason"] == u"Föobäß"
+        assert result["reason"] == "Föobäß"
 
     def test_update_with_successful_result(self):
         """Test updating a resource's row with a new successful result."""
@@ -162,10 +162,10 @@ class TestUpsertAndGet(object):
         results.upsert("test_resource_id", True, status=200, reason="OK")
 
         results.upsert("test_resource_id", False, status=404,
-                       reason=u"Föoßär")
+                       reason="Föoßär")
 
         result = results.get("test_resource_id")
-        assert result["reason"] == u"Föoßär"
+        assert result["reason"] == "Föoßär"
 
     def test_incrementing_num_fails(self):
         """Test that repeated bad results increment num_fails."""

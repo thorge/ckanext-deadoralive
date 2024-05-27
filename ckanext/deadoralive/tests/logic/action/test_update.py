@@ -31,7 +31,7 @@ class TestUpsert(custom_helpers.FunctionalTestBaseClass):
 
         helpers.call_action("ckanext_deadoralive_upsert",
                             resource_id=resource["id"], alive=True,
-                            status=200, reason=u"Alleß ökäy!")
+                            status=200, reason="Alleß ökäy!")
 
         result = helpers.call_action("ckanext_deadoralive_get",
                                      resource_id=resource["id"])
@@ -39,4 +39,4 @@ class TestUpsert(custom_helpers.FunctionalTestBaseClass):
         assert result["resource_id"] == resource["id"]
         assert result["alive"] is True
         assert result["status"] == 200
-        assert result["reason"] == u"Alleß ökäy!"
+        assert result["reason"] == "Alleß ökäy!"
