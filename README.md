@@ -1,13 +1,11 @@
+# ckanext-deadoralive
+
 [![Build Status](https://travis-ci.org/ckan/ckanext-deadoralive.png)](https://travis-ci.org/ckan/ckanext-deadoralive) [![Coverage Status](https://img.shields.io/coveralls/ckan/ckanext-deadoralive.svg)](https://coveralls.io/r/ckan/ckanext-deadoralive?branch=master)
 [![Latest Version](https://pypip.in/version/ckanext-deadoralive/badge.svg)](https://pypi.python.org/pypi/ckanext-deadoralive/)
 [![Downloads](https://pypip.in/download/ckanext-deadoralive/badge.svg)](https://pypi.python.org/pypi/ckanext-deadoralive/)
 [![Supported Python versions](https://pypip.in/py_versions/ckanext-deadoralive/badge.svg)](https://pypi.python.org/pypi/ckanext-deadoralive/)
 [![Development Status](https://pypip.in/status/ckanext-deadoralive/badge.svg)](https://pypi.python.org/pypi/ckanext-deadoralive/)
 [![License](https://pypip.in/license/ckanext-deadoralive/badge.svg)](https://pypi.python.org/pypi/ckanext-deadoralive/)
-
-
-ckanext-deadoralive
-===================
 
 ckanext-deadoralive is a CKAN extension for the [Dead or Alive link checker service](https://github.com/ckan/deadoralive).
 It provides the API that enables a CKAN site to be checked by the link checker,
@@ -16,15 +14,12 @@ adds various broken link reports to the CKAN site.
 
 Features and screenshots: [seanh.cc/posts/ckanext-deadoralive](http://seanh.cc/posts/ckanext-deadoralive/)  
 
+## Requirements
 
-Requirements
-------------
+- Minimum Python version required is 3.6.
+- Minimum CKAN version required is 2.9.
 
-Tested with CKAN 2.8 and Python 2.7. Python 2.6 is not supported!
-
-
-Installation and Usage
-----------------------
+## Installation and Usage
 
 1. Activate your CKAN virtualenv and then:
 
@@ -65,9 +60,7 @@ Installation and Usage
    created in step 3 above. Run the link checker against your CKAN site and
    you'll start to see broken link reports appear on the site.
 
-
-Optional Config Settings
-------------------------
+## Optional Config Settings
 
 In the `[app:main]` section of the CKAN config file:
 
@@ -88,9 +81,7 @@ In the `[app:main]` section of the CKAN config file:
     # before we mark that resource as broken in CKAN.
     ckanext.deadoralive.broken_resource_min_hours = 36
 
-
-Development
------------
+## Development
 
 To install the plugin for development, activate your CKAN virtualenv and do:
 
@@ -98,7 +89,6 @@ To install the plugin for development, activate your CKAN virtualenv and do:
         cd ckanext-deadoralive
         python setup.py develop
         pip install -r dev-requirements.txt
-
 
 ### Creating Test Datasets
 
@@ -122,7 +112,6 @@ This will let you run the link checker many times in a row and recheck all of
 the links, without waiting 24 hours to recheck a link. It'll also mark links as
 broken as soon as they've been checked and found broken three times in a row,
 regardless of the period of time the checks happened over.
-
 
 ### Running the Tests
 
