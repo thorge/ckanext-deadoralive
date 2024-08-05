@@ -148,7 +148,8 @@ def _broken_links_by_organization(context, organization_list, all_results,
 
         # Build the report dict for each of the organization's datasets.
         for dataset in datasets:
-            resource_ids = [resource["id"] for resource in dataset["resources"]]
+            resource_ids = [resource["id"]
+                            for resource in dataset["resources"]]
             broken_resource_ids = [resource_id for resource_id in resource_ids
                                    if _is_broken(result_dicts.get(resource_id))]
             num_broken_links += len(broken_resource_ids)
@@ -158,7 +159,7 @@ def _broken_links_by_organization(context, organization_list, all_results,
                     "display_name": dataset.get("title") or dataset.get("name"),
                     "num_broken_links": len(broken_resource_ids),
                     "resources_with_broken_links": broken_resource_ids,
-                    }
+                }
                 organization_report_item["datasets_with_broken_links"].append(
                     dataset_report_item)
 
@@ -311,7 +312,8 @@ def broken_links_by_email(context, data_dict):
 
         if len(item["datasets_with_broken_links"]) == 1:
             subject = "You have a dataset with broken links on {site}"
-            subject = subject.format(site=toolkit.config.get("ckan.site_title"))
+            subject = subject.format(
+                site=toolkit.config.get("ckan.site_title"))
             body = "This dataset contains a broken link:%0A%0A{title}%0A{url}"
             broken_dataset = item["datasets_with_broken_links"][0]
             url = toolkit.config.get("ckan.site_url") + toolkit.url_for(

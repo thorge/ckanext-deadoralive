@@ -10,15 +10,33 @@ import ckanext.deadoralive.logic.action.update as update
 import ckanext.deadoralive.helpers as helpers
 import ckanext.deadoralive.logic.auth.update
 import ckanext.deadoralive.logic.auth.get
+from ckanext.deadoralive.views import default
+from flask import Blueprint
 
 
 class DeadOrAlivePlugin(plugins.SingletonPlugin):
+    plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.IConfigurable)
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IActions)
     plugins.implements(plugins.ITemplateHelpers)
-    plugins.implements(plugins.IRoutes, inherit=True)
     plugins.implements(plugins.IAuthFunctions)
+
+    # Blueprint
+
+    def get_blueprint(self):
+        blueprint = Blueprint('deadoralive', self.__module__)
+        blueprint.add_url_rule(
+            '/deadoralive/get_resources_to_check', view_func=default.get_resources_to_check)
+        blueprint.add_url_rule(
+            '/deadoralive/get_url_for_resource_id', view_func=default.get_resource_id_for_url)
+        blueprint.add_url_rule(
+            '/deadoralive/upsert', view_func=default.upsert)
+        blueprint.add_url_rule(
+            '/deadoralive/organization/broken_links/', view_func=default.broken_links_by_organization)
+        blueprint.add_url_rule(
+            '/ckan-admin/broken_links', view_func=default.broken_links_by_email)
+        return [blueprint]
 
     # IConfigurable
 
@@ -77,36 +95,6 @@ class DeadOrAlivePlugin(plugins.SingletonPlugin):
         return {
             "ckanext_deadoralive_get": helpers.get_results,
         }
-
-    # IRoutes
-
-    def before_map(self, map_):
-        map_.connect("deadoralive_broken_links_by_organization",
-                     "/deadoralive/organization/broken_links/",
-                     controller="ckanext.deadoralive.controllers:BrokenLinksController",
-                     action="broken_links_by_organization")
-        map_.connect("deadoralive_broken_links_by_email",
-                     "/ckan-admin/broken_links",
-                     controller="ckanext.deadoralive.controllers:BrokenLinksController",
-                     action="broken_links_by_email",
-                     ckan_icon="link")
-
-        # Make some of this plugin's custom action functions also available at
-        # custom URLs. This is to support deadoralive's non-CKAN specific API.
-        map_.connect(
-            "/deadoralive/get_resources_to_check",
-            controller="ckanext.deadoralive.controllers:BrokenLinksController",
-            action="get_resources_to_check")
-        map_.connect(
-            "/deadoralive/get_url_for_resource_id",
-            controller="ckanext.deadoralive.controllers:BrokenLinksController",
-            action="get_resource_id_for_url")
-        map_.connect(
-            "/deadoralive/upsert",
-            controller="ckanext.deadoralive.controllers:BrokenLinksController",
-            action="upsert")
-
-        return map_
 
     # IAuthFunctions
 
