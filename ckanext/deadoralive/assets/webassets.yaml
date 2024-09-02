@@ -1,0 +1,4 @@
+deadoralive_base_style:
+  output: ckanext-odsh/odsh_base.css
+  contents:
+    - master.css
