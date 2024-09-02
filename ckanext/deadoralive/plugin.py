@@ -31,7 +31,7 @@ class DeadOrAlivePlugin(plugins.SingletonPlugin):
         blueprint.add_url_rule(
             '/deadoralive/get_url_for_resource_id', view_func=default.get_resource_id_for_url)
         blueprint.add_url_rule(
-            '/deadoralive/upsert', view_func=default.upsert)
+            '/deadoralive/upsert', view_func=default.upsert, methods=['POST'])
         blueprint.add_url_rule(
             '/deadoralive/organization/broken_links/', view_func=default.broken_links_by_organization)
         blueprint.add_url_rule(
@@ -69,7 +69,7 @@ class DeadOrAlivePlugin(plugins.SingletonPlugin):
 
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
-        toolkit.add_resource('theme/resources', 'deadoralive')
+        toolkit.add_resource('assets', 'deadoralive')
 
         if toolkit.check_ckan_version(max_version='2.2.999'):
             # Add CKAN version 2.2 support templates.
